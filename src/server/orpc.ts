@@ -27,7 +27,7 @@ const login = os
       } catch (jsonErr) {
         throw new Error(`Auth server returned an invalid response (Status ${res.status})`);
       }
-      
+
       if (!res.ok) {
         throw new Error(data.message || `Login failed (${res.status})`);
       }
@@ -77,7 +77,6 @@ const addProduct = os
       }
       return res.json();
     } catch (err) {
-      console.error("Add Product Error:", err);
       throw err;
     }
   });
@@ -105,14 +104,13 @@ const editProduct = os
       }
       return res.json();
     } catch (err) {
-      console.error("Edit Product Error:", err);
       throw err;
     }
   });
 
-export const appRouter = {
+export const appRouter = os.router({
   auth: { login },
   products: { getProducts, addProduct, editProduct },
-};
+});
 
 export type AppRouter = typeof appRouter;

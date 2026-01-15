@@ -4,10 +4,14 @@ import type { AppRouter } from "@/server/orpc";
 
 function getBaseUrl() {
   if (typeof window !== "undefined") {
-    return window.location.origin;
+    return "";
   }
 
-  return "https://product-dashboard-seven-mu.vercel.app/";
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  return "http://localhost:3000";
 }
 
 export const orpcClient = createORPCClient<AppRouter>(
