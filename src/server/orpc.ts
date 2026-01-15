@@ -110,31 +110,6 @@ const editProduct = os
     }
   });
 
-const deleteProduct = os
-  .route({
-    method: "DELETE",
-    path: "/products/{id}"
-  })
-  .input(z.object({
-    id: z.number()
-  }))
-  .handler(async ({ input }) => {
-    try {
-      const res = await fetch(`https://dummyjson.com/products/${input.id}`, {
-        method: "DELETE",
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Failed to delete product");
-      }
-      return res.json();
-    } catch (err) {
-      console.error("Delete Product Error:", err);
-      throw err;
-    }
-  });
-
 export const appRouter = {
   auth: { login },
   products: { getProducts, addProduct, editProduct },

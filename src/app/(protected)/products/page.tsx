@@ -118,13 +118,13 @@ export default function ProductsPage() {
       </div>
 
       <Card className="mb-8 border-none bg-muted/30 shadow-none">
-        <CardContent className="p-4 flex flex-wrap gap-4 items-end">
-          <div className="flex-1 min-w-[200px] space-y-1.5">
+        <CardContent className="p-4 flex flex-col md:flex-row gap-4 items-stretch md:items-end">
+          <div className="flex-1 space-y-1.5">
             <label className="text-xs font-medium uppercase text-muted-foreground">Search</label>
             <div className="relative">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search..."
+                placeholder="Search products..."
                 value={search}
                 onChange={(e) => {
                   setSearch(e.target.value);
@@ -135,62 +135,64 @@ export default function ProductsPage() {
             </div>
           </div>
 
-          <div className="w-[180px] space-y-1.5">
-            <label className="text-xs font-medium uppercase text-muted-foreground">Category</label>
-            <select
-              value={category}
-              onChange={(e) => {
-                setCategory(e.target.value);
+          <div className="flex flex-col sm:flex-row gap-4 items-stretch md:items-end">
+            <div className="w-full sm:w-[200px] space-y-1.5">
+              <label className="text-xs font-medium uppercase text-muted-foreground">Category</label>
+              <select
+                value={category}
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                  setPage(0);
+                }}
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <option value="">All Categories</option>
+                {categories.map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="flex gap-2 items-end">
+              <div className="flex-1 sm:w-24 space-y-1.5">
+                <label className="text-xs font-medium uppercase text-muted-foreground">Price Range</label>
+                <Input
+                  type="number"
+                  placeholder="Min"
+                  value={minPrice ?? ""}
+                  onChange={(e) => {
+                    setMinPrice(e.target.value ? Number(e.target.value) : null);
+                    setPage(0);
+                  }}
+                  className="bg-background"
+                />
+              </div>
+              <div className="flex-1 sm:w-24 space-y-1.5">
+                <Input
+                  type="number"
+                  placeholder="Max"
+                  value={maxPrice ?? ""}
+                  onChange={(e) => {
+                    setMaxPrice(e.target.value ? Number(e.target.value) : null);
+                    setPage(0);
+                  }}
+                  className="bg-background"
+                />
+              </div>
+            </div>
+
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => {
+                resetFilters();
                 setPage(0);
               }}
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="text-muted-foreground h-10 whitespace-nowrap"
             >
-              <option value="">All Categories</option>
-              {categories.map((c) => (
-                <option key={c} value={c}>{c}</option>
-              ))}
-            </select>
+              <X className="h-4 w-4 mr-1" /> Reset
+            </Button>
           </div>
-
-          <div className="flex gap-2 items-end">
-            <div className="w-24 space-y-1.5">
-              <label className="text-xs font-medium uppercase text-muted-foreground">Price</label>
-              <Input
-                type="number"
-                placeholder="Min"
-                value={minPrice ?? ""}
-                onChange={(e) => {
-                  setMinPrice(e.target.value ? Number(e.target.value) : null);
-                  setPage(0);
-                }}
-                className="bg-background"
-              />
-            </div>
-            <div className="w-24 space-y-1.5">
-              <Input
-                type="number"
-                placeholder="Max"
-                value={maxPrice ?? ""}
-                onChange={(e) => {
-                  setMaxPrice(e.target.value ? Number(e.target.value) : null);
-                  setPage(0);
-                }}
-                className="bg-background"
-              />
-            </div>
-          </div>
-
-          <Button 
-            variant="ghost" 
-            size="sm"
-            onClick={() => {
-              resetFilters();
-              setPage(0);
-            }}
-            className="text-muted-foreground h-10"
-          >
-            <X className="h-4 w-4 mr-1" /> Reset
-          </Button>
         </CardContent>
       </Card>
 
