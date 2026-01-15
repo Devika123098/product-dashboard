@@ -39,9 +39,27 @@ const login = os
       throw err;
     }
   });
+  const getProducts = os
+  .route({ method: "GET", path: "/products" })
+  .input(
+    z.object({
+      limit: z.number().min(1).max(100).optional(),
+      skip: z.number().min(0).optional(),
+    })
+  )
+  .handler(async ({ input }) => {
+    const { limit = 10, skip = 0 } = input;
+    const res = await fetch(
+      `https://dummyjson.com/products?limit=${limit}&skip=${skip}`
+    );
+    if (!res.ok) throw new Error("Failed to fetch products");
+    return res.json();
+  });
+
 
 export const appRouter = {
-  auth: {
-    login,
-  },
+  auth: { login },
+  products: { getProducts }, 
 };
+
+export type AppRouter = typeof appRouter;
