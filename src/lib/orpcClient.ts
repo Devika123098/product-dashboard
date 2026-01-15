@@ -7,7 +7,7 @@ function getBaseUrl() {
     return window.location.origin;
   }
 
-  return "http://localhost:3000";
+  return "https://product-dashboard-seven-mu.vercel.app/";
 }
 
 export const orpcClient = createORPCClient<AppRouter>(
