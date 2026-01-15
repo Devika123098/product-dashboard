@@ -65,6 +65,16 @@ The project follows a clean separation of concerns:
    npm run build
    ```
 
+## Login Credentials
+
+Use these credentials to test the application:
+
+### Admin Account
+- **Username**: `emilys`
+- **Password**: `emilyspass`
+- **Access**: Full admin privileges (can add, edit, and view products)
+
+
 ## Key Challenges and Solutions
 
 - **Internal Server Error in Admin**: I identified and fixed a 500 status error caused by a mismatch between the client's expectations and the oRPC handler's error catching logic. I improved the `addProduct` procedure with robust error handling and implemented the missing `editProduct` and `deleteProduct` procedures.
