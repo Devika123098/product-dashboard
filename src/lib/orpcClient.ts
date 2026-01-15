@@ -4,7 +4,7 @@ import type { AppRouter } from "@/server/orpc";
 
 function getBaseUrl() {
   if (typeof window !== "undefined") {
-    return "";
+    return window.location.origin;
   }
 
   if (process.env.VERCEL_URL) {
