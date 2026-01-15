@@ -1,6 +1,5 @@
 import { os } from "@orpc/server";
 import { z } from "zod";
-
 const login = os
   .route({
     method: "POST",
@@ -14,7 +13,6 @@ const login = os
   )
   .handler(async ({ input }) => {
     console.log("Login input:", input);
-
     try {
       const res = await fetch("https://dummyjson.com/auth/login", {
         method: "POST",
@@ -23,7 +21,6 @@ const login = os
         },
         body: JSON.stringify(input),
       });
-
       console.log("DummyJSON status:", res.status);
 
       const text = await res.text();
@@ -32,7 +29,6 @@ const login = os
       if (!res.ok) {
         throw new Error(`DummyJSON error: ${text}`);
       }
-
       return JSON.parse(text);
     } catch (err) {
       console.error("Login handler error:", err);
@@ -55,11 +51,8 @@ const login = os
     if (!res.ok) throw new Error("Failed to fetch products");
     return res.json();
   });
-
-
 export const appRouter = {
   auth: { login },
   products: { getProducts }, 
 };
-
 export type AppRouter = typeof appRouter;

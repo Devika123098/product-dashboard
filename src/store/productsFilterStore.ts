@@ -1,5 +1,4 @@
 import { create } from "zustand";
-
 interface ProductsFilterState {
   search: string;
   category: string;
@@ -11,7 +10,6 @@ interface ProductsFilterState {
   setMaxPrice: (price: number | null) => void;
   resetFilters: () => void;
 }
-
 export const useProductsFilterStore = create<ProductsFilterState>((set) => ({
   search: "",
   category: "",
